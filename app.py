@@ -40,7 +40,7 @@ def main():
 
     if uploaded_file is None:
         st.info("Please upload a file of type: " + ", ".join(["xls", "xlsx", "csv"]) + " to start analysing your data.")
-        st.image("https://drive.google.com/file/d/1rd90Fl7xUKILcYBsxqqei3J0M-zucHFO/view?usp=sharing", use_column_width=True)
+        st.image("waiting.jpg", use_column_width=True)
         return
 
     if uploaded_file is not None:
