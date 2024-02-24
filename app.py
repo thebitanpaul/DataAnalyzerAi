@@ -15,7 +15,7 @@ from langchain_community.vectorstores import FAISS
 
 
 def generate_pdf(html_content, output_path):
-    config = pdfkit.configuration(wkhtmltopdf="lib/python3.9/site-packages/wkhtmltopdf")
+    config = pdfkit.configuration(wkhtmltopdf="wkhtmltopdf")
     pdfkit.from_string(html_content, output_path, configuration=config)
 
 
