@@ -14,8 +14,8 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 
 
-def generate_pdf(html_content, output_path):
-    config = pdfkit.configuration(wkhtmltopdf='/usr/local/bin/wkhtmltopdf')
+def generate_pdf(html_content, output_path, wkhtmltopdf_path=None):
+    config = pdfkit.configuration(wkhtmltopdf=wkhtmltopdf_path)
     pdfkit.from_string(html_content, output_path, configuration=config)
 
 

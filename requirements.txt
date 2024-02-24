@@ -106,6 +106,7 @@ urllib3==2.2.1
 validators==0.22.0
 visions==0.7.5
 watchdog==4.0.0
+wkhtmltopdf==0.2
 wordcloud==1.9.3
 xlrd==2.0.1
 yarl==1.9.4
