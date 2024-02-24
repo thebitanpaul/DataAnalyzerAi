@@ -128,7 +128,7 @@ def main():
 
         if pdf_button_sidebar:
             with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as temp_pdf_file:
-                generate_pdf(html_string, temp_pdf_file.name)
+                generate_pdf(html_string, temp_pdf_file.name, wkhtmltopdf_path='/usr/local/bin/wkhtmltopdf')
                 with open(temp_pdf_file.name, 'rb') as f:
                     pdf_data = f.read()
                 b64_pdf = base64.b64encode(pdf_data).decode('utf-8')
