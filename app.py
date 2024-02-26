@@ -15,7 +15,7 @@ from langchain_community.vectorstores import FAISS
 
 
 def generate_pdf(html_content, output_path):
-    config = pdfkit.configuration(wkhtmltopdf="DataAnalyzerAi/wkhtmltopdf")
+    config = pdfkit.configuration(wkhtmltopdf="wkhtmltopdf")
     pdfkit.from_string(html_content, output_path, configuration=config)
 
 
@@ -123,17 +123,15 @@ def main():
             message_placeholder.markdown(full_response)
             st.session_state.messages.append({"role": "assistant", "content": full_response})  # Adjust height as needed
 
-        # Download button for PDF
-        pdf_button_sidebar = st.sidebar.button("Download PDF Report")
+        # Download button for HTML report
+        html_button_sidebar = st.sidebar.button("Download Report")
+        if html_button_sidebar:
+            temp_html_file = tempfile.NamedTemporaryFile(delete=False, suffix='.html')
+            temp_html_file.write(html_string.encode())
+            temp_html_file.close()
+            st.sidebar.markdown(f'<a href="data:text/html;base64,{base64.b64encode(open(temp_html_file.name, "rb").read()).decode()}" target="_blank" download="report.html">Click here to download</a>', unsafe_allow_html=True)
+            st.sidebar.info("☝︎ By clicking on this link you can download the report, and open it in your browser.\n\n Then you can press cntrl+p to save the report in a pdf file.")
 
-        if pdf_button_sidebar:
-            with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as temp_pdf_file:
-                generate_pdf(html_string, temp_pdf_file.name)
-                with open(temp_pdf_file.name, 'rb') as f:
-                    pdf_data = f.read()
-                b64_pdf = base64.b64encode(pdf_data).decode('utf-8')
-                href = f'<a href="data:application/pdf;base64,{b64_pdf}" download="report.pdf">Click here to download</a>'
-                st.sidebar.markdown(href, unsafe_allow_html=True)
                 
 
 
