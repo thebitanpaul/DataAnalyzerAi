@@ -14,11 +14,6 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 
 
-def generate_pdf(html_content, output_path):
-    config = pdfkit.configuration(wkhtmltopdf="wkhtmltopdf")
-    pdfkit.from_string(html_content, output_path, configuration=config)
-
-
 # Function to read HTML content
 def read_html(html_content):
     soup = BeautifulSoup(html_content, "html.parser")
@@ -126,11 +121,22 @@ def main():
         # Download button for HTML report
         html_button_sidebar = st.sidebar.button("Download Report")
         if html_button_sidebar:
+            progress_bar = st.sidebar.progress(0)
+            progress_message = st.sidebar.empty()
+            
+            progress_message.text("Preparing report for download...")
+            progress_bar.progress(10)
             temp_html_file = tempfile.NamedTemporaryFile(delete=False, suffix='.html')
+            progress_bar.progress(30)
             temp_html_file.write(html_string.encode())
+            progress_bar.progress(40)
             temp_html_file.close()
+            progress_bar.progress(60)
             st.sidebar.markdown(f'<a href="data:text/html;base64,{base64.b64encode(open(temp_html_file.name, "rb").read()).decode()}" target="_blank" download="report.html">Click here to download</a>', unsafe_allow_html=True)
+            progress_bar.progress(80)
             st.sidebar.info("☝︎ By clicking on this link you can download the report, and open it in your browser.\n\n Then you can press cntrl+p to save the report in a pdf file.")
+            progress_bar.progress(100)
+            progress_message.text("Download link generated successfully!")
 
                 
 
