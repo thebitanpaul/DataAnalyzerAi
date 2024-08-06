@@ -26,6 +26,8 @@ def read_html(html_content):
 # Load environment variables
 load_dotenv()
 
+# Use Streamlit secrets instead of dotenv
+api_key = st.secrets["OPENAI_API_KEY"]
 
 def main():
     st.title("Data Analyzer Ai")
@@ -78,7 +80,7 @@ def main():
         documents = text_splitter.split_text(text=text)
 
         # Vectorize the documents and create vectorstore
-        embeddings = OpenAIEmbeddings()
+        embeddings = OpenAIEmbeddings(api_key=api_key)
         vectorstore = FAISS.from_texts(documents, embedding=embeddings)
 
         st.session_state.processed_data = {
