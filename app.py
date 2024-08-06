@@ -24,7 +24,7 @@ def read_html(html_content):
 
 
 # Load environment variables
-load_dotenv()
+# load_dotenv()
 
 # Use Streamlit secrets instead of dotenv
 api_key = st.secrets["OPENAI_API_KEY"]
