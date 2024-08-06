@@ -28,6 +28,7 @@ load_dotenv()
 
 # Use Streamlit secrets instead of dotenv
 api_key = st.secrets["OPENAI_API_KEY"]
+print("api_key")
 
 def main():
     st.title("Data Analyzer Ai")
