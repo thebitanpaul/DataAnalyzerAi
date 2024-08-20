@@ -33,7 +33,7 @@ def read_html(html_content):
     return text    
 
 def main():
-    st.title("Gen BI")
+    st.title("Data Analyzer Ai")
 
     tab1, tab2, tab3 = st.tabs(["Data Profile", "Excel Sheet", "Pair Plots"])
 
